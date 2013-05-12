@@ -12,6 +12,4 @@ rah_backup__dropbox_token_error => oAuth-kortin hakeminen epäonnistui.
 rah_backup__dropbox_set_keys => Määritä yllä olevat asetukset ja <strong>tallenna</strong> ennen <strong>valtuuttamista</strong>.
 rah_backup__dropbox_authorize => Valtuuta yhteys
 rah_backup__dropbox_unable_import_api => Dropbox SDK:n tuonti hakemistosta <strong>{path}</strong> epäonnistui. Tarkasta API-hakemiston tila.
-rah_backup__dropbox_unsupported_php => Dropbox moduuli ei tue PHP-versioitasi <strong>{version}</strong>.
-rah_backup__dropbox_curl_missing => Dropbox moduuli vaatii cURL:in.
 rah_backup__dropbox_link_account => Dropbox moduuli pyytää että linkität tilisi. Siirry <strong>Asetuksiin</strong> aloittaaksesi.

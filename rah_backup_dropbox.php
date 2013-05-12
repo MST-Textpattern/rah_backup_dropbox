@@ -149,18 +149,6 @@ class rah_backup_dropbox
 	
 	public function requirements()
 	{
-		if (!function_exists('curl_init'))
-		{
-			rah_backup::get()->announce(gTxt('rah_backup_dropbox_curl_missing'), 'warning');
-			return;
-		}
-
-		if (version_compare(PHP_VERSION, '5.3.1') < 0)
-		{
-			rah_backup::get()->announce(gTxt('rah_backup_dropbox_unsupported_php', array('{version}' => PHP_VERSION)), 'warning');
-			return;
-		}
-
 		if (!$this->token)
 		{
 			rah_backup::get()->announce(gTxt('rah_backup_dropbox_link_account'), 'information');
