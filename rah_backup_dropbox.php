@@ -265,7 +265,7 @@ class rah_backup_dropbox
 				$this->dropbox = new \Dropbox\API($this->oauth);
 			}
 		}
-		catch(exception $e)
+		catch (exception $e)
 		{
 			rah_backup::get()->announce(array('Dropbox SDK said: '.$e->getMessage(), E_ERROR));
 			return false;
