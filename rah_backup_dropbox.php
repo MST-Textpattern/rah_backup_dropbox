@@ -17,57 +17,74 @@
 class rah_backup_dropbox
 {	
 	/**
-	 * @var string User's consumer key
+	 * User's consumer key.
+	 *
+	 * @var string
 	 */
 
 	protected $key;
 
 	/**
-	 * @var string User's consumer secret
+	 * User's consumer secret.
+	 *
+	 * @var string
 	 */
 
 	protected $secret;
 
 	/**
-	 * @var string Authencation string
+	 * Authentication token.
+	 *
+	 * @var string
 	 */
 
 	protected $token;
 
 	/**
-	 * @var string Callback endpoint URL
+	 * Authentication callback endpoint URL.
+	 *
+	 * @var string
 	 */
 
 	protected $callback_uri;
 
 	/**
-	 * @var obj Storage/session handler
+	 * An instance of session handler.
+	 *
+	 * @var \Dropbox\OAuth\Storage\Session
 	 */
 
 	protected $storage;
 
 	/**
-	 * @var obj OAuth
+	 * An instance of OAuth.
+	 *
+	 * @var \Dropbox\OAuth\Consumer\Curl
 	 */
 
 	protected $oauth;
 
 	/**
-	 * @var obj Dropbox API
+	 * An instance of Dropbox API.
+	 *
+	 * @var \Dropbox\API
 	 */
 
 	protected $dropbox;
 
 	/**
-	 * Connected
+	 * Whether user is connected to Dropbox.
+	 *
+	 * @var bool
 	 */
 
 	protected $connected = false;
 
 	/**
-	 * Installer
-	 * @param string $event Admin-side event.
-	 * @param string $step Admin-side, plugin-lifecycle step.
+	 * Installer.
+	 *
+	 * @param string $event Admin-side event
+	 * @param string $step  Admin-side, plugin-lifecycle step
 	 */
 
 	static public function install($event = '', $step = '')
@@ -106,7 +123,7 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 
 	public function __construct()
@@ -134,7 +151,7 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Requirements check
+	 * Requirements check.
 	 */
 	
 	public function requirements()
@@ -158,7 +175,7 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Unlinks account
+	 * Unlinks account.
 	 */
 
 	public function unlink_account()
@@ -179,7 +196,7 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Authentication handler
+	 * Authentication handler.
 	 */
 	
 	public function authentication()
@@ -196,9 +213,9 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Redirects user to web endpoint
+	 * Redirects user to Dropbox authentication web endpoint.
 	 */
-	
+
 	protected function auth_authorize()
 	{
 		if (!$this->connect())
@@ -208,9 +225,9 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Gets token and writes it to DB
+	 * Gets Dropbox access token and writes it to the database.
 	 */
-	
+
 	protected function auth_accesstoken()
 	{
 		if (!$this->connect())
@@ -230,10 +247,11 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Connect to Dropbox
+	 * Connects to Dropbox.
+	 *
 	 * @return bool
 	 */
-	
+
 	public function connect()
 	{
 		if (!$this->key || !$this->secret)
@@ -278,9 +296,10 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Syncs backups
+	 * Syncs backups.
+	 *
 	 * @param string $event
-	 * @param array $files
+	 * @param array  $files
 	 */
 
 	public function sync($event, $files)
@@ -309,7 +328,7 @@ class rah_backup_dropbox
 	}
 
 	/**
-	 * Redirect to the admin-side interface
+	 * Redirect to the admin-side preferences panel.
 	 */
 	
 	static public function prefs()
@@ -326,7 +345,8 @@ class rah_backup_dropbox
 new rah_backup_dropbox();
 
 /**
- * Options controller for token pref
+ * Options controller for Dropbox access token.
+ *
  * @return string HTML
  */
 
@@ -350,9 +370,10 @@ function rah_backup_dropbox_token()
 }
 
 /**
- * Options controller for app key
- * @param string $name Field name
- * @param string $value Current value
+ * Options controller for the application key.
+ *
+ * @param  string $name  Field name
+ * @param  string $value Current value
  * @return string HTML
  */
 
