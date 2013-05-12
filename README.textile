@@ -20,6 +20,8 @@ p. The module at minimum requires:
 * PHP 5.3.1 or newer.
 ** "cURL":http://www.php.net/manual/en/book.curl.php
 
+h2. Getting started
+
 h3. Creating Dropbox app keys
 
 p. For the Dropbox application to be able to connect to your Dropbox application, it needs to be register to Dropbox's application database. You can create your personal app key and secret by registering a new dummy application in Dropbox's "Developer Center":https://www.dropbox.com/developers/apps.
