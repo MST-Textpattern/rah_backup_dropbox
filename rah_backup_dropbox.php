@@ -82,24 +82,11 @@ class rah_backup_dropbox
 
 	/**
 	 * Installer.
-	 *
-	 * @param string $event Admin-side event
-	 * @param string $step  Admin-side, plugin-lifecycle step
 	 */
 
-	static public function install($event = '', $step = '')
+	public function install()
 	{
 		global $prefs;
-
-		if ($step == 'deleted')
-		{
-			safe_delete(
-				'txp_prefs',
-				"name like 'rah\_backup\_dropbox\_%'"
-			);
-
-			return;
-		}
 
 		$position = 250;
 
@@ -123,6 +110,15 @@ class rah_backup_dropbox
 	}
 
 	/**
+	 * Uninstaller.
+	 */
+
+	public function uninstall()
+	{
+		safe_delete('txp_prefs', "name like 'rah\_backup\_dropbox\_%'");
+	}
+
+	/**
 	 * Constructor.
 	 */
 
@@ -138,7 +134,8 @@ class rah_backup_dropbox
 		{
 			register_callback(array($this, 'unlink_account'), 'prefs');
 			register_callback(array(__CLASS__, 'prefs'), 'plugin_prefs.rah_backup_dropbox');
-			register_callback(array(__CLASS__, 'install'), 'plugin_lifecycle.rah_backup_dropbox');
+			register_callback(array($this, 'install'), 'plugin_lifecycle.rah_backup_dropbox', 'installed');
+			register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_backup_dropbox', 'deleted');
 			register_callback(array($this, 'requirements'), 'rah_backup', '', 1);
 		}
 
