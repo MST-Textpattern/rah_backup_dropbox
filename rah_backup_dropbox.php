@@ -334,7 +334,7 @@ new rah_backup_dropbox();
 
 function rah_backup_dropbox_token()
 {
-	if(!get_pref('rah_backup_dropbox_key', '', true) || !get_pref('rah_backup_dropbox_secret', '', true))
+	if (!get_pref('rah_backup_dropbox_key', '', true) || !get_pref('rah_backup_dropbox_secret', '', true))
 	{
 		return 
 			'<span class="navlink-disabled">'.gTxt('rah_backup_dropbox_authorize').'</span>'.n.
