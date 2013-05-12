@@ -129,15 +129,11 @@ class rah_backup_dropbox
 		register_callback(array($this, 'sync'), 'rah_backup.created');
 		register_callback(array($this, 'sync'), 'rah_backup.deleted');
 		register_callback(array($this, 'authentication'), 'textpattern');
-
-		if (txpinterface == 'admin')
-		{
-			register_callback(array($this, 'unlink_account'), 'prefs');
-			register_callback(array($this, 'prefs'), 'plugin_prefs.rah_backup_dropbox');
-			register_callback(array($this, 'install'), 'plugin_lifecycle.rah_backup_dropbox', 'installed');
-			register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_backup_dropbox', 'deleted');
-			register_callback(array($this, 'requirements'), 'rah_backup', '', 1);
-		}
+		register_callback(array($this, 'unlink_account'), 'prefs');
+		register_callback(array($this, 'prefs'), 'plugin_prefs.rah_backup_dropbox');
+		register_callback(array($this, 'install'), 'plugin_lifecycle.rah_backup_dropbox', 'installed');
+		register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_backup_dropbox', 'deleted');
+		register_callback(array($this, 'requirements'), 'rah_backup', '', 1);
 
 		$this->callback_uri = hu.'?rah_backup_dropbox_oauth=accesstoken';
 
