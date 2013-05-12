@@ -86,8 +86,6 @@ class rah_backup_dropbox
 
 	public function install()
 	{
-		global $prefs;
-
 		$position = 250;
 
 		foreach (
@@ -100,7 +98,7 @@ class rah_backup_dropbox
 		{
 			$n = 'rah_backup_dropbox_'.$name;
 
-			if (!isset($prefs[$n]))
+			if (get_pref($n, false) === false)
 			{
 				set_pref($n, $val[1], 'rah_bckp_db', PREF_ADVANCED, $val[0], $position);
 			}
