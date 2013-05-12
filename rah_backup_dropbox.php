@@ -124,7 +124,7 @@ class rah_backup_dropbox
 
 	public function __construct()
 	{
-		add_privs('plugin_prefs.rah_backup_dropbox', '1,2');
+		add_privs('plugin_prefs.rah_backup_dropbox', '1');
 		add_privs('prefs.rah_bckp_db', '1');
 		register_callback(array($this, 'sync'), 'rah_backup.created');
 		register_callback(array($this, 'sync'), 'rah_backup.deleted');
@@ -163,7 +163,7 @@ class rah_backup_dropbox
 	{
 		global $prefs;
 
-		if(!gps('rah_backup_dropbox_unlink') || !has_privs('prefs')) {
+		if(!gps('rah_backup_dropbox_unlink') || !has_privs('prefs.rah_bckp_db')) {
 			return;
 		}
 
