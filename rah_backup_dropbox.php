@@ -354,7 +354,6 @@ function rah_backup_dropbox_token()
 		n.href(gTxt('rah_backup_dropbox_authorize'), hu.'?rah_backup_dropbox_oauth=authorize', array(
 			'class' => 'navlink',
 		)).
-
 		n.href(gTxt('rah_backup_dropbox_reset'), array(
 			'event'                     => $event,
 			'rah_backup_dropbox_unlink' => 1,
