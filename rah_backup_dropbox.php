@@ -310,15 +310,11 @@ class rah_backup_dropbox
 	/**
 	 * Redirect to the admin-side preferences panel.
 	 */
-	
+
 	public function prefs()
 	{
-		header('Location: ?event=prefs&step=advanced_prefs#prefs-rah_backup_dropbox_api_key');
-
-		echo 
-			'<p>'.n.
-			'	<a href="?event=prefs&amp;step=advanced_prefs#prefs-rah_backup_dropbox_api_key">'.gTxt('continue').'</a>'.n.
-			'</p>';
+		header('Location: ?event=prefs#prefs-rah_backup_dropbox_api_key');
+		echo graf(href(gTxt('continue'), 'event=prefs#prefs-rah_backup_dropbox_api_key'));
 	}
 }
 
@@ -332,21 +328,37 @@ new rah_backup_dropbox();
 
 function rah_backup_dropbox_token()
 {
+	global $event;
+
 	if (!get_pref('rah_backup_dropbox_key', '', true) || !get_pref('rah_backup_dropbox_secret', '', true))
 	{
 		return 
-			'<span class="navlink-disabled">'.gTxt('rah_backup_dropbox_authorize').'</span>'.n.
-			'<span class="information">'.gTxt('rah_backup_dropbox_set_keys', array('{save}' => gTxt('save'))).'</span>';
+			n.span(gTxt('rah_backup_dropbox_authorize'), array(
+				'class' => 'navlink-disabled',
+			)).
+			n.span(gTxt('rah_backup_dropbox_set_keys', array('{save}' => gTxt('save'))), array(
+				'class' => 'information',
+			));
 	}
 
 	if (get_pref('rah_backup_dropbox_token'))
 	{
-		return '<a class="navlink" href="?event=prefs'.a.'step=advanced_prefs'.a.'rah_backup_dropbox_unlink=1">'.gTxt('rah_backup_dropbox_unlink').'</a>';
+		return 
+			n.href(gTxt('rah_backup_dropbox_unlink'), array(
+				'event'                     => $event,
+				'rah_backup_dropbox_unlink' => 1,
+			), array('class' => 'navlink'));
 	}
-	
+
 	return 
-		'<a class="navlink" href="'.hu.'?rah_backup_dropbox_oauth=authorize">'.gTxt('rah_backup_dropbox_authorize').'</a>'.n.
-		'<a class="navlink" href="?event=prefs'.a.'step=advanced_prefs'.a.'rah_backup_dropbox_unlink=1">'.gTxt('rah_backup_dropbox_reset').'</a>';
+		n.href(gTxt('rah_backup_dropbox_authorize'), hu.'?rah_backup_dropbox_oauth=authorize', array(
+			'class' => 'navlink',
+		)).
+
+		n.href(gTxt('rah_backup_dropbox_reset'), array(
+			'event'                     => $event,
+			'rah_backup_dropbox_unlink' => 1,
+		));
 }
 
 /**

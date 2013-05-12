@@ -19,6 +19,7 @@
 	"require": {
 		"php": ">=5.3.1",
 		"textpattern/installer": "*",
+		"textpattern/lock": ">=4.6.0,4.6.*@dev",
 		"rah/rah_backup": "*@dev",
 		"rah/rah_autoload": "*",
 		"benthedesigner/dropbox": "*,*@dev"
