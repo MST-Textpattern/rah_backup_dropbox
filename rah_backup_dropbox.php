@@ -184,7 +184,7 @@ class rah_backup_dropbox
 		$auth = (string) gps('rah_backup_dropbox_oauth');
 		$method = 'auth_'.$auth;
 
-		if (!$auth || $this->token !$this->key || !$this->secret || !method_exists($this, $method))
+		if (!$auth || $this->token || !$this->key || !$this->secret || !method_exists($this, $method))
 		{
 			return;
 		}
