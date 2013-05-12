@@ -1,19 +1,24 @@
 h1. Dropbox module for rah_backup
 
+p. "Packagist":https://packagist.org/packages/rah/rah_backup_dropbox | "Twitter":http://twitter.com/gocom | "Donate":http://rahforum.biz/donate/rah_backup_dropbox
+
 p. Uploads backups to your "Dropbox":https://www.dropbox.com/ account.
+
+h2. Installing
+
+p. Using "Composer":http://getcomposer.org:
+
+bc. $ composer.phar require rah/rah_backup_dropbox
 
 h2. Requirements
 
 p. The module at minimum requires:
 
+* "rah_backup":http://github.com/gocom/rah_backup
 * "Dropbox App key and secret":https://www.dropbox.com/developers/apps
 * Ben Tadiar's "SDK for the Dropbox REST API":https://github.com/BenTheDesigner/Dropbox
 * PHP 5.3.1 or newer.
 ** "cURL":http://www.php.net/manual/en/book.curl.php
-
-h2. Getting started
-
-p. Before you go on and try using the module, please confirm that your server meets the requirements. You will need PHP 5.3.1, cURL and internet connection. The module uses "Ben Tadiar's "Dropbox SDK":https://github.com/BenTheDesigner/Dropbox. Download it, and extract and upload it to your server where rah_backup is installed.
 
 h3. Creating Dropbox app keys
 
@@ -66,3 +71,9 @@ h3. Account actions
 p. The last option you see isn't actually a configurable field, but an row with links. This the row that gets populated by buttons used for linking and unlinking your application keys and rah_backup with Dropbox.
 
 p. After you have set all the module's preferences, this line gets a _Authorize_ link, which you then would use to do linking of the application and Dropbox. After a successful authorization, this line would display _Unlink account and app_ link.
+
+h2. Changelog
+
+h3. Version 0.1.0 - upcoming
+
+* Initial release.
