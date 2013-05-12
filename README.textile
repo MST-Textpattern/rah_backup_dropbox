@@ -10,16 +10,6 @@ p. Using "Composer":http://getcomposer.org:
 
 bc. $ composer.phar require rah/rah_backup_dropbox
 
-h2. Requirements
-
-p. The module at minimum requires:
-
-* "rah_backup":http://github.com/gocom/rah_backup
-* "Dropbox App key and secret":https://www.dropbox.com/developers/apps
-* Ben Tadiar's "SDK for the Dropbox REST API":https://github.com/BenTheDesigner/Dropbox
-* PHP 5.3.1 or newer.
-** "cURL":http://www.php.net/manual/en/book.curl.php
-
 h2. Getting started
 
 h3. Creating Dropbox app keys
