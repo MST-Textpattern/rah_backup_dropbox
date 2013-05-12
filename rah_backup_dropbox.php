@@ -15,8 +15,6 @@
 	new rah_backup__dropbox();
 
 class rah_backup__dropbox {
-
-	static public $version = '0.1';
 	
 	/**
 	 * @var string User's consumer key
@@ -86,11 +84,6 @@ class rah_backup__dropbox {
 			return;
 		}
 		
-		$current = (string) get_pref(__CLASS__.'_version', 'base');
-		
-		if($current === self::$version)
-			return;
-		
 		$position = 250;
 		
 		foreach(
@@ -108,8 +101,6 @@ class rah_backup__dropbox {
 			
 			$position++;
 		}
-		
-		set_pref(__CLASS__.'_version', self::$version, 'rah_bckp_db', PREF_HIDDEN);
 	}
 
 	/**
