@@ -10,6 +10,8 @@ p. Using "Composer":http://getcomposer.org:
 
 bc. $ composer.phar require rah/rah_backup_dropbox
 
+p. Installing rah_backup_dropbox requires that your "minimum-stability":http://getcomposer.org/doc/04-schema.md#minimum-stability is set to dev. Some of the dependencies do not have stable releases.
+
 h2. Getting started
 
 h3. Creating Dropbox app keys
