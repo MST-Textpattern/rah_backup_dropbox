@@ -373,8 +373,9 @@ function rah_backup_dropbox_key($name, $value)
 	if ($value !== '')
 	{
 		$value = str_pad('', strlen($value), '*');
-		return fInput('text', $name.'_null', $value, '', '', '', '', '', '', true);
+		$value = text_input($name.'_null', $value, INPUT_REGULAR);
+		return str_replace('<input', '<input disabled="disabled"', $value);
 	}
 
-	return text_input($name, $value);
+	return text_input($name, $value, INPUT_REGULAR);
 }
