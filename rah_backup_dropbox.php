@@ -1,15 +1,17 @@
 <?php
 
 /**
- * Tranfers copies of backups made by rah_backup to Dropbox account
- * 
- * @package rah_backup
- * @author Jukka Svahn <http://rahforum.biz>
- * @copyright (c) 2011 Jukka Svahn
- * @license GLPv2
+ * Dropbox module for rah_backup.
  *
- * Requires rah_backup, Ben Tadiar's Dropbox SDK <https://github.com/BenTheDesigner/Dropbox>,
- * PHP 5.3.1 or newer and cURL.
+ * Backups your site backups to your Dropbox account.
+ *
+ * @author  Jukka Svahn
+ * @license GNU GPLv2
+ * @link    https://github.com/gocom/rah_backup_dropbox
+ *
+ * Copyright (C) 2013 Jukka Svahn http://rahforum.biz
+ * Licensed under GNU General Public License version 2
+ * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 	new rah_backup_dropbox();
