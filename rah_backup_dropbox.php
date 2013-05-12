@@ -14,8 +14,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-	new rah_backup_dropbox();
-
 class rah_backup_dropbox {
 	
 	/**
@@ -294,6 +292,8 @@ class rah_backup_dropbox {
 			'</p>';
 	}
 }
+
+new rah_backup_dropbox();
 
 	/**
 	 * Options controller for token pref
