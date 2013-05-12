@@ -163,7 +163,8 @@ class rah_backup_dropbox
 	{
 		global $prefs;
 
-		if(!gps('rah_backup_dropbox_unlink') || !has_privs('prefs.rah_bckp_db')) {
+		if (!gps('rah_backup_dropbox_unlink') || !has_privs('prefs.rah_bckp_db'))
+		{
 			return;
 		}
 
