@@ -4,7 +4,6 @@ rah_bckp_db => Dropbox moduuli rah_backup:lle
 rah_backup__dropbox_key => Dropbox sovelluksen avain
 rah_backup__dropbox_secret => Dropbox sovelluksen sala-avain
 rah_backup__dropbox_token => Tilin toiminnot
-rah_backup__dropbox_api_dir => Dropbox SDK:n asennushakemisto
 rah_backup__dropbox_unlink => Pura tilin ja sovelluksen linkitys
 rah_backup__dropbox_reset => Nollaa avaimet
 rah_backup__dropbox_authenticated => Yhteys todennettu onnistuneesti. Voit nyt siirtyä takaisin Textpattern:in käyttöliittymään.

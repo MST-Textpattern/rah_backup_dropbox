@@ -37,12 +37,6 @@ class rah_backup__dropbox {
 	protected $token;
 	
 	/**
-	 * @var string Path to Dropbox SDK's installation directory
-	 */
-	
-	protected $api_dir;
-	
-	/**
 	 * @var string Callback endpoint URL
 	 */
 	
@@ -101,7 +95,6 @@ class rah_backup__dropbox {
 		
 		foreach(
 			array(
-				'api_dir' => array('text_input', './../dropbox'),
 				'key' => array(__CLASS__.'_key', ''),
 				'secret' => array(__CLASS__.'_key', ''),
 				'token' => array(__CLASS__.'_token', ''),
@@ -139,15 +132,9 @@ class rah_backup__dropbox {
 		
 		$this->callback_uri = hu.'?'.__CLASS__.'_oauth=accesstoken';
 		
-		foreach(array('key', 'secret', 'api_dir', 'token') as $name) {
+		foreach(array('key', 'secret', 'token') as $name) {
 			$this->$name = get_pref(__CLASS__.'_'.$name);
 		}
-		
-		if(strpos($this->api_dir, './') === 0) {
-			$this->api_dir = txpath.'/'.substr($this->api_dir, 2);
-		}
-		
-		$this->api_dir = rtrim($this->api_dir, '\\/');
 	}
 	
 	/**
@@ -169,46 +156,6 @@ class rah_backup__dropbox {
 		if(!$this->token) {
 			rah_backup::get()->announce(gTxt(__CLASS__.'_link_account'), 'information');
 		}
-	}
-	
-	/**
-	 * Import Dropbox SDK. We don't use autoloading due to this going to CMS
-	 * @return bool
-	 */
-	
-	public function import_api() {
-		
-		static $imported = false;
-		
-		if(!$this->api_dir || $imported == true) {
-			return $imported;
-		}
-		
-		if(!file_exists($this->api_dir) || !is_dir($this->api_dir) || !is_readable($this->api_dir)) {
-			return false;
-		}
-		
-		foreach(array(
-			'API.php',
-			'Exception.php',
-			'OAuth/Consumer/ConsumerAbstract.php',
-			'OAuth/Consumer/Curl.php',
-			'OAuth/Storage/Encrypter.php',
-			'OAuth/Storage/StorageInterface.php',
-			'OAuth/Storage/Session.php'
-		) as $name) {
-			$f = $this->api_dir.'/'.$name;
-			
-			if(!file_exists($f) || !is_file($f) || !is_readable($f)) {
-				$this->api_dir = null;
-				return false;
-			}
-			
-			include_once $f;
-		}
-		
-		$imported = true;
-		return true;
 	}
 	
 	/**
@@ -239,12 +186,8 @@ class rah_backup__dropbox {
 		$auth = (string) gps(__CLASS__.'_oauth');
 		$method = 'auth_'.$auth;
 		
-		if(!$auth || $this->token || !$this->api_dir || !$this->key || !$this->secret || !method_exists($this, $method)) {
+		if(!$auth || $this->token !$this->key || !$this->secret || !method_exists($this, $method)) {
 			return;
-		}
-		
-		if(!$this->import_api()) {
-			die(gTxt(__CLASS__.'_unable_import_api'));
 		}
 		
 		$this->$method();
@@ -287,9 +230,7 @@ class rah_backup__dropbox {
 	
 	public function connect() {
 		
-		$this->import_api();
-		
-		if(!$this->key || !$this->secret || !$this->api_dir) {
+		if(!$this->key || !$this->secret) {
 			return false;
 		}
 		
@@ -327,11 +268,6 @@ class rah_backup__dropbox {
 	 */
 	
 	public function sync($event, $files) {
-		
-		if(!$this->import_api()) {
-			rah_backup::get()->announce(array(gTxt(__CLASS__.'_unable_import_api', array('{path}' => $this->api_dir)), E_ERROR));
-			return;
-		}
 	
 		if(!$this->token || !$this->connect()) {
 			return;
@@ -357,11 +293,11 @@ class rah_backup__dropbox {
 	 */
 	
 	static public function prefs() {
-		header('Location: ?event=prefs&step=advanced_prefs#prefs-rah_backup__dropbox_api_dir');
+		header('Location: ?event=prefs&step=advanced_prefs#prefs-rah_backup__dropbox_api_key');
 		
 		echo 
 			'<p>'.n.
-			'	<a href="?event=prefs&amp;step=advanced_prefs#prefs-rah_backup__dropbox_api_dir">'.gTxt('continue').'</a>'.n.
+			'	<a href="?event=prefs&amp;step=advanced_prefs#prefs-rah_backup__dropbox_api_key">'.gTxt('continue').'</a>'.n.
 			'</p>';
 	}
 }
@@ -373,8 +309,7 @@ class rah_backup__dropbox {
 
 	function rah_backup__dropbox_token() {
 		
-		if(
-			!get_pref('rah_backup__dropbox_api_dir', '', true) || 
+		if( 
 			!get_pref('rah_backup__dropbox_key', '', true) || 
 			!get_pref('rah_backup__dropbox_secret', '', true)
 		) {

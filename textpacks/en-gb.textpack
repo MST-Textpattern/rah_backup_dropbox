@@ -4,7 +4,6 @@ rah_bckp_db => Dropbox module for rah_backup
 rah_backup__dropbox_key => Dropbox app key
 rah_backup__dropbox_secret => Dropbox app secret
 rah_backup__dropbox_token => Account actions
-rah_backup__dropbox_api_dir => Dropbox SDK installation directory
 rah_backup__dropbox_unlink => Unlink account and app
 rah_backup__dropbox_reset => Reset app key and secret
 rah_backup__dropbox_authenticated => Authenticated successfully. You can now go to your Textpattern control panel.
