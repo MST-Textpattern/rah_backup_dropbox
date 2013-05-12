@@ -1,0 +1,25 @@
+{
+	"name": "rah/rah_backup_dropbox",
+	"description": "Dropbox module for rah_backup",
+	"keywords": ["textpattern", "plugin"],
+	"homepage": "https://github.com/gocom/rah_backup_dropbox",
+	"license": "GPL-2.0",
+	"type": "textpattern-plugin",
+	"authors": [
+		{
+			"name": "Jukka Svahn",
+			"homepage": "http://rahforum.biz",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/gocom/rah_backup_dropbox/issues",
+		"source": "https://github.com/gocom/rah_backup_dropbox"
+	},
+	"require": {
+		"php": ">=5.3.1",
+		"textpattern/installer": "*",
+		"rah/rah_backup": "*@dev",
+		"benthedesigner/dropbox": "*,*@dev"
+	}
+}
