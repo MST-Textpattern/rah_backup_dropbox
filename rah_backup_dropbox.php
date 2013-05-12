@@ -149,7 +149,7 @@ class rah_backup_dropbox
 	
 	public function requirements()
 	{
-		if (!$this->token)
+		if (!$this->token && has_privs('prefs.rah_bckp_db'))
 		{
 			rah_backup::get()->announce(gTxt('rah_backup_dropbox_link_account'), 'information');
 		}
