@@ -131,7 +131,7 @@ class rah_backup_dropbox
 		register_callback(array($this, 'prefs'), 'plugin_prefs.rah_backup_dropbox');
 		register_callback(array($this, 'install'), 'plugin_lifecycle.rah_backup_dropbox', 'installed');
 		register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_backup_dropbox', 'deleted');
-		register_callback(array($this, 'requirements'), 'rah_backup', '', 1);
+		register_callback(array($this, 'requirements'), 'rah_backup');
 
 		$this->callback_uri = hu.'?rah_backup_dropbox_oauth=accesstoken';
 
@@ -144,12 +144,12 @@ class rah_backup_dropbox
 	/**
 	 * Requirements check.
 	 */
-	
+
 	public function requirements()
 	{
 		if (!$this->token && has_privs('prefs.rah_bckp_db'))
 		{
-			rah_backup::get()->announce(gTxt('rah_backup_dropbox_link_account'), 'information');
+			echo announce(gTxt('rah_backup_dropbox_link_account'));
 		}
 	}
 
@@ -198,7 +198,11 @@ class rah_backup_dropbox
 
 	protected function auth_authorize()
 	{
-		if (!$this->connect())
+		try
+		{
+			$this->connect();
+		}
+		catch (Exception $e)
 		{
 			die(gTxt('rah_backup_dropbox_connection_error'));
 		}
@@ -210,20 +214,23 @@ class rah_backup_dropbox
 
 	protected function auth_accesstoken()
 	{
-		if (!$this->connect())
+		try
 		{
-			die(gTxt('rah_backup_dropbox_connection_error'));
+			$this->connect();
+			$token = $this->storage->get('access_token');
 		}
-
-		$token = $this->storage->get('access_token');
+		catch (Exception $e)
+		{
+			$token = false;
+		}
 
 		if (!$token)
 		{
-			exit(gTxt('rah_backup_dropbox_token_error'));
+			die(gTxt('rah_backup_dropbox_token_error'));
 		}
 
 		set_pref('rah_backup_dropbox_token', json_encode($token), 'rah_bckp_db', 2, '', 0);
-		exit(gTxt('rah_backup_dropbox_authenticated'));
+		die(gTxt('rah_backup_dropbox_authenticated'));
 	}
 
 	/**
@@ -236,7 +243,7 @@ class rah_backup_dropbox
 	{
 		if (!$this->key || !$this->secret)
 		{
-			return false;
+			throw new Exception('Secret and key are needed to connect to a Dropbox account.');
 		}
 
 		if ($this->connected)
@@ -265,10 +272,9 @@ class rah_backup_dropbox
 				$this->dropbox = new \Dropbox\API($this->oauth);
 			}
 		}
-		catch (exception $e)
+		catch (Exception $e)
 		{
-			rah_backup::get()->announce(array('Dropbox SDK said: '.$e->getMessage(), E_ERROR));
-			return false;
+			throw new Exception('Dropbox SDK said: '.$e->getMessage());
 		}
 
 		$this->connected = true;
@@ -279,10 +285,11 @@ class rah_backup_dropbox
 	 * Syncs backups.
 	 *
 	 * @param string $event
-	 * @param array  $files
+	 * @param string $step
+	 * @param array  $data
 	 */
 
-	public function sync($event, $files)
+	public function sync($event, $step, $data)
 	{
 		if (!$this->token || !$this->connect())
 		{
@@ -291,19 +298,24 @@ class rah_backup_dropbox
 
 		try
 		{
-			foreach (rah_backup::get()->deleted as $name => $path)
+			if ($event === 'rah_backup.deleted')
 			{
-				$this->dropbox->delete($name);
+				foreach ($data['files'] as $name => $path)
+				{
+					$this->dropbox->delete($name);
+				}
 			}
-
-			foreach (rah_backup::get()->created as $name => $path)
+			else
 			{
-				$this->dropbox->putFile($path, $name);
+				foreach ($data['files'] as $name => $path)
+				{
+					$this->dropbox->putFile($path, $name);
+				}
 			}
 		}
-		catch (exception $e)
+		catch (Exception $e)
 		{
-			rah_backup::get()->announce(array('Dropbox SDK said: '.$e->getMessage(), E_ERROR));
+			throw new Exception('Dropbox SDK said: '.$e->getMessage());
 		}
 	}
 
